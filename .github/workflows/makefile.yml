@@ -17,11 +17,20 @@ jobs:
     - name: autotools
       run: autoreconf -i
       
+    # Initializes the CodeQL tools for scanning.
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v1
+      with:
+        languages: 'cpp'
+      
     - name: configure
       run: ./configure
 
     - name: Install dependencies
       run: make
+      
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v1
       
     - name: Run check
       run: make check
